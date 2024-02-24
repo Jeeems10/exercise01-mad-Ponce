@@ -10,15 +10,15 @@
 ### Describe how Kotlin handles null safety. What are nullable types and non-null types in Kotlin? (0,5 points)
 
 <span style="color:blue">Provide your answer here! </span>
-One of the main characteristics of Kotlin is its approach to null safety, which aims to lower the possibility of the feared NullPointerException that afflicts a lot of Java programs. By differentiating between nullable and non-null types
+<br> One of the main characteristics of Kotlin is its approach to null safety, which aims to lower the possibility of the feared NullPointerException that afflicts a lot of Java programs. By differentiating between nullable and non-null types
 
-Non-Null Types
-Types in Kotlin are never null by default. This implies that Kotlin assumes a variable cannot contain a null value if it is declared as a variable of a particular type. You cannot give null to a variable that is declared as String, for instance. If this is attempted, a compile-time error will occur. By using this design decision, the possibility of running into a NullPointerException when accessing variables is practically eliminated.
+**Non-Null Types**
+<br>Types in Kotlin are never null by default. This implies that Kotlin assumes a variable cannot contain a null value if it is declared as a variable of a particular type. You cannot give null to a variable that is declared as String, for instance. If this is attempted, a compile-time error will occur. By using this design decision, the possibility of running into a NullPointerException when accessing variables is practically eliminated.
 
 ![image](https://github.com/Jeeems10/exercise01-mad-Ponce/assets/114492119/6b0d1e3f-88d4-4627-838f-dd4976dadaf8)
 
-Nullable Types
-A question mark (?) is appended to the type name to indicate that the type is expressly marked as nullable, allowing a variable to have a null value. String?, for example, is a nullable string type; its variables can store null or a string value.
+**Nullable Types**
+<br> A question mark (?) is appended to the type name to indicate that the type is expressly marked as nullable, allowing a variable to have a null value. String?, for example, is a nullable string type; its variables can store null or a string value.
 
 ![image](https://github.com/Jeeems10/exercise01-mad-Ponce/assets/114492119/71ac7099-ab12-4c62-ba25-d75abf01cef2)
 
