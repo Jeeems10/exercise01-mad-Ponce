@@ -3,10 +3,50 @@
  */
 package at.ac.fhcampuswien
 
+import java.util.*
+import kotlin.random.Random
+
 class App {
     // Game logic for a number guessing game
     fun playNumberGame(digitsToGuess: Int = 4) {
         //TODO: build a menu which calls the functions and works with the return values
+        val scanner = Scanner(System.`in`)
+        var continuePlaying = true
+
+        while (continuePlaying) {
+            println("Start the number guessing game. Guess a number with $digitsToGuess unique digits.")
+
+            val generatedNumber = generateRandomNonRepeatingNumber(digitsToGuess)
+            println("A number has been generated. Try to guess it!")
+
+            var hasGuessedCorrectly = false
+            while (!hasGuessedCorrectly) {
+                println("Please enter a number with $digitsToGuess digits:")
+                val userInput = try {
+                    scanner.nextInt()
+                } catch (e: Exception) {
+                    println("Invalid input. Please enter numbers only.")
+                    scanner.next() // clear the scanner buffer
+                    continue
+                }
+
+                try {
+                    val result = checkUserInputAgainstGeneratedNumber(userInput, generatedNumber)
+                    println(result)
+                    hasGuessedCorrectly = result.m == digitsToGuess
+                    if (hasGuessedCorrectly) {
+                        println("Congratulations! You have guessed the number correctly.")
+                    }
+                } catch (e: IllegalArgumentException) {
+                    println(e.message)
+                }
+            }
+
+            println("Do you want to play again? (yes/no)")
+            val userDecision = scanner.next()
+            continuePlaying = userDecision.equals("yes", ignoreCase = true)
+        }
+
     }
 
     /**
@@ -25,7 +65,16 @@ class App {
      */
     val generateRandomNonRepeatingNumber: (Int) -> Int = { length ->
         //TODO implement the function
-        0   // return value is a placeholder
+        // return value is a placeholder
+        if(length < 1 || length > 9){
+            throw IllegalArgumentException("The length must be between 1 and 9")
+        }
+
+        generateSequence { Random.nextInt(1, 10) }
+            .distinct()
+            .take(length)
+            .joinToString("")
+            .toInt()
     }
 
     /**
@@ -46,11 +95,22 @@ class App {
      */
     val checkUserInputAgainstGeneratedNumber: (Int, Int) -> CompareResult = { input, generatedNumber ->
         //TODO implement the function
-        CompareResult(0, 0)   // return value is a placeholder
+        val inputStr = input.toString()
+        val genNumStr = generatedNumber.toString()
+
+        if (inputStr.length != genNumStr.length) {
+            throw IllegalArgumentException("The inputs must have the same number of digits.")
+        }
+
+        val correctDigits = inputStr.filter { it in genNumStr }.toSet().size
+        val correctPositions = inputStr.zip(genNumStr).count { it.first == it.second }
+
+        CompareResult(correctDigits, correctPositions) // return value is a placeholder
     }
 }
 
 fun main() {
-    println("Hello World!")
     // TODO: call the App.playNumberGame function with and without default arguments
+    val app = App()
+    app.playNumberGame(4)
 }
